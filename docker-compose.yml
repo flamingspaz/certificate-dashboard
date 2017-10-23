@@ -5,7 +5,6 @@ services:
      - MONITORED_CERT_HOSTS=
      - DAYS_LEFT_DANGER=10
      - DAYS_LEFT_WARNING=20
-     - CONNECTION_TIMEOUT=5000
-    image: dash
+    image: certificate-dashboard
     ports:
       - 5000:5000/tcp
