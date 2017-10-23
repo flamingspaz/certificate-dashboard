@@ -2,23 +2,25 @@ $(function () {
   var $container = $('#container');
   var certificatesInfo = $container.data('certinfo');
   var runDate = $container.data('rundate');
+  var headerBackground = $container.data('headerBackground');
 
   $('#created_date').html(runDate);
 
+
   var sorted_certificates = Object.keys(certificatesInfo)
-    .sort(function( a, b ) {
-      return certificatesInfo[a].info.days_left - certificatesInfo[b].info.days_left;
-    }).map(function(sortedKey) {
-      return certificatesInfo[sortedKey];
+  .sort(function (a, b) {
+    return certificatesInfo[a].info.sort_order - certificatesInfo[b].info.sort_order;
+  }).map(function (sortedKey) {
+    return certificatesInfo[sortedKey];
   });
 
   var card_html = String()
-    +'<div class="col-xs-12 col-md-6 col-xl-4">'
+    +'<div class="col-xs-12 col-md-6 col-xl-3">'
     +'  <div class="card text-xs-center" style="border-color:#333;">'
     +'    <div class="card-header" style="overflow:hidden;">'
     +'      <h4 class="text-muted" style="margin-bottom:0;">{{server}}</h4>'
     +'    </div>'
-    +'    <div class="card-block {{background}}">'
+    +'    <div class="card-block card-inverse card-{{background}}">'
     +'      <h1 class="card-text display-4" style="margin-top:0;margin-bottom:-1rem;">{{days_left}}</h1>'
     +'      <p class="card-text" style="margin-bottom:.75rem;"><small>days left</small></p>'
     +'    </div>'
@@ -42,16 +44,8 @@ $(function () {
       'days_left': element.info.days_left,
       'issuer': element.issuer.org,
       'common_name': element.subject.common_name,
-      'issuer_cn': element.issuer.common_name
-    }
-    if (element.info.days_left <= 30 ){
-      json.background = 'card-inverse card-danger';
-    } else if (element.info.days_left  > 30 && element.info.days_left <= 60 ) {
-      json.background = 'card-inverse card-warning';
-    } else if (element.info.days_left  === "??") {
-      json.background = 'card-inverse card-info';
-    } else {
-      json.background = 'card-inverse card-success';
+      'issuer_cn': element.issuer.common_name,
+      'background': element.info.background_class
     }
     insert_card(json);
 

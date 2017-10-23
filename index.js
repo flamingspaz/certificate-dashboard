@@ -3,7 +3,7 @@ require('promise/lib/rejection-tracking').enable();
 
 var express = require('express');
 var app = express();
-var certificate = require('./src/certificate')
+var certificate = require('./src/get_cert_info.js');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -14,15 +14,11 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
   certificate.getCertificationData().then(function(data) {
-    responseData = {
-      certInfo: JSON.stringify(data),
-      runDate: new Date().toDateString()
-    }
 
     if(request.headers['content-type'] == 'application/json') {
       response.json(responseData);
     } else {
-      response.render('pages/index', responseData);
+      response.render('pages/index', data);
     }
   });
 });

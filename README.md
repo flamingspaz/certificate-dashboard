@@ -17,9 +17,21 @@ Environment variables
 
 ```sh
 MONITORED_CERT_HOSTS="www.mysitethatsupportssl.com, www.othersitessl.com"
+DAYS_LEFT_DANGER=10
+DAYS_LEFT_WARNING=20
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
+
+## Running with Docker
+
+Set environment variables in the docker-compose.yml file.
+Build and start the application.
+
+```sh
+docker build -t certificate-dashboard .
+docker-compose up
+```
 
 ## Deploying to Heroku
 
